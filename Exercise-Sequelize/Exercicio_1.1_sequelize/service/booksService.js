@@ -20,7 +20,25 @@ const getIdBooks = async (id) => {
     return book;
 };
 
+const postBook = async (title, author, pageQuantity) => {
+  const bookCreate = await books.create({ title, author, pageQuantity });
+  return bookCreate.dataValues
+};
+
+const putBook = async (id, title, author, pageQuantity) => {
+  const booksUpdate = await books.update({ title, author, pageQuantity },{ where: { id } });
+  return booksUpdate;
+};
+
+const deleteBook = async (id) => {
+  const deleteBookId = await books.destroy({ where: { id } });
+  return deleteBookId;
+};
+
 module.exports = {
     getAllBooks,
     getIdBooks,
+    postBook,
+    putBook,
+    deleteBook
 };
