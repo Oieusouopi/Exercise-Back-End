@@ -9,7 +9,6 @@ router.get('/', async (_req, res) => {
 
     return res.status(200).json(users);
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   };
 });
@@ -26,7 +25,6 @@ router.get('/:id', async (req, res) => {
 
     return res.status(200).json(user);
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 });
@@ -43,7 +41,6 @@ router.get('/search/:id', async (req, res) => {
 
     return res.status(200).json(user);
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 });
@@ -56,7 +53,6 @@ router.post('/', async (req, res) => {
 
     return res.status(201).json(newUser);
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 });
@@ -72,13 +68,10 @@ router.put('/:id', async (req, res) => {
       { where: { id } },
     );
 
-    console.log(updateUser); // confira o que é retornado quando o user com o id é ou não encontrado;
-
     if(!updateUser) return res.status(404).json({ message: 'Usuário não encontrado' });
 
     return res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 });
@@ -87,20 +80,11 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteUser = await User.destroy(
-      { where: { id } },
-    );
-
-    console.log(deleteUser) // confira o que é retornado quando o user com o id é ou não encontrado;
-
+    await User.destroy({ where: { id } });
     return res.status(200).json({ message: 'Usuário excluído com sucesso!' });
   } catch (e) {
-    console.log(e.message);
     res.status(500).json({ message: 'Algo deu errado' });
   }
 });
-
-module.exports = router;
-// ...
 
 module.exports = router;
